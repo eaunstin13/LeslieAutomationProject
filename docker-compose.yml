@@ -1,0 +1,27 @@
+version: "3"
+services:
+  selenium-hub:
+    restart: always
+    image: selenium/hub
+    container_name: 
+    environment:
+      GRID_MAX_SESSIONS: 6
+    ports:
+      - 4444:4444
+  selenium-chrome:
+    restart: always
+    image: selenium/node-chrome-debug
+    shm_size: 1g
+    ports:
+      - 5900
+    stdin_open: true
+    depends_on:
+      - selenium-hub
+    environment:
+      HUB_HOST: hub
+      NODE_MAX_INSTANCES: 6
+      NODE_MAX_SESSION: 6
+    links:
+      - selenium-hub:hub
+    
+  
