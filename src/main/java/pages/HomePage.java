@@ -1,8 +1,10 @@
-﻿package pages;
+package pages;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
@@ -15,11 +17,12 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import com.sun.tools.javac.util.Context.Key;
+//import com.sun.tools.javac.util.Context.Key;
 
 import io.appium.java_client.android.nativekey.KeyEvent;
 import utils.GlobalVariables;
 //import wdMethods.EddieBauerMethods;
+import utils.ReadExcel;
 import wdMethods.ProjMethods;
 
 public class HomePage extends ProjMethods {
@@ -128,7 +131,9 @@ public class HomePage extends ProjMethods {
 	
 	@FindBy(how = How.XPATH, using = "//*[@class=' order-thank-you-msg text-dosis text-primary font-weight-bold mt-5 mb-4']")
 	public WebElement thankyouOrder;
-	
+
+	@FindBy(how = How.XPATH, using = "//*[@id='button3']")
+	public WebElement closeIcon;
 	
 	// Home Page Function
 	public void clicksearch() {
@@ -137,7 +142,9 @@ public class HomePage extends ProjMethods {
 	
 	
 	public void verifyHomePage() throws AWTException, InterruptedException {
+		/*
 		Robot rb = new Robot();
+
 		rb.keyPress(java.awt.event.KeyEvent.VK_S);
 		rb.keyRelease(java.awt.event.KeyEvent.VK_S);
 		Thread.sleep(10);
@@ -206,8 +213,12 @@ public class HomePage extends ProjMethods {
 		Thread.sleep(10);
 		rb.keyPress(java.awt.event.KeyEvent.VK_ENTER);
 		rb.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+
+		 */
 		Thread.sleep(10);
+		//click(closeIcon);
 		getDriver().navigate().refresh();
+
 		verifyTitleContains("Pool Supplies, Service & Repair | Leslie's Pool Supplies");
 		waitForServerToPerformAction(10);
 		reportStep("Successfully Landed to Home Page", "INFO");
@@ -225,14 +236,34 @@ public class HomePage extends ProjMethods {
 	}
 	
 	public void createNewLoginUser() {
+		ReadExcel user = new ReadExcel();
+		String[][] data = user.getSheet("datasheet.xls");
+		String firstNamedata = null;
+		String lastNamedata = null;
+		String emaildata = null;
+		String passworddata = null;
+
+		System.out.println(Arrays.deepToString(data));
+
+		for (int i = 0; i < data.length; i++) {
+			if(data[i][5].equalsIgnoreCase("N")){
+				for (int j = 0; j < data[i].length; j++) {
+					 firstNamedata = data[i][1];
+					 lastNamedata = data[i][2];
+					 emaildata = data[i][3];
+					 passworddata = data[i][4];
+				}
+			}
+		}
+
 		click(joinOrSignIn);
 		click(joinForFree);
 		waitForServerToPerformAction(3);
-		type(firstName, "Lokesh");
-		type(lastName, "tester");
-		type(Email, generateRandomEmail());
-		type(password, "Tester123@");
-		type(confirmPassword, "Tester123@");
+		type(firstName, firstNamedata);
+		type(lastName, lastNamedata);
+		type(Email, emaildata);
+		type(password, passworddata);
+		type(confirmPassword, passworddata);
 		click(createAccount);
 		waitForServerToPerformAction(3);
 		
@@ -241,7 +272,6 @@ public class HomePage extends ProjMethods {
 		} else {
 			reportStep("the user failed to create a new account", "FAIL", true);
 		}
-		
 
 	}
 	

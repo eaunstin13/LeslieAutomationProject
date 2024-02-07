@@ -13,6 +13,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
@@ -47,7 +52,6 @@ import utils.Reporter;
 
 public class SeMethods extends Reporter implements WdMethods {
 
-
 	protected static final ThreadLocal<SeMethods> driverThreadLocal = new ThreadLocal<SeMethods>();
 	public RemoteWebDriver driver;
 	protected Properties prop;
@@ -55,6 +59,7 @@ public class SeMethods extends Reporter implements WdMethods {
 	public String primaryWindowHandle,sHubUrl,sHubPort,browser;
 	public int short_wait, long_wait, waitTime;
 
+	public String imagePath ="C:\\Results\\Image";
 	public void setDriver(SeMethods methods) {
 		driverThreadLocal.set(methods);
 	}
@@ -88,7 +93,7 @@ public class SeMethods extends Reporter implements WdMethods {
 	 * This method will launch the browser in local machine and maximise the browser and set the
 	 * wait for 30 seconds and load the url
 	 * @author    AutomationQA
-	 * @param url - The url with http or https
+	 * @paramURL  - The url with http or https
 	 * @return 
 	 * 
 	 */
@@ -100,7 +105,7 @@ public class SeMethods extends Reporter implements WdMethods {
 	 * This method will launch the browser in grid node (if remote) and maximise the browser and set the
 	 * wait for 30 seconds and load the url 
 	 * @author    AutomationQA
-	 * @param url - The url with http or https
+	 * @paramURL - The url with http or https
 	 * @return 
 	 * 
 	 */
@@ -308,6 +313,8 @@ public class SeMethods extends Reporter implements WdMethods {
 			WebDriverWait wait = new WebDriverWait(getDriver(), 20);
 			wait.until(ExpectedConditions.elementToBeClickable(ele));	
 			ele.click();
+
+
 		} catch (InvalidElementStateException e) {
 			scrollIntoViewTopOfScreen(ele);
 			clickElementByJavaScript(ele);
@@ -676,7 +683,9 @@ public class SeMethods extends Reporter implements WdMethods {
 	public long takeSnap(){
 		long snapNumber = (long) Math.floor(Math.random() * 900000000L) + 10000000L; 
 		try {
-			FileUtils.copyFile(getDriver().getScreenshotAs(OutputType.FILE) , new File("./reports/images/"+snapNumber+".jpg"));
+			FileUtils.copyFile(getDriver().getScreenshotAs(OutputType.FILE) , new File(imagePath+"/"+snapNumber+".jpg"));
+
+			//FileUtils.copyFile(getDriver().getScreenshotAs(OutputType.FILE) , new File("./reports/images/"+snapNumber+".jpg"));
 		} catch (WebDriverException e) {
 			System.out.println("The browser has been closed.");
 		} catch (IOException e) {

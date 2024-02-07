@@ -20,7 +20,7 @@ import wdMethods.ProjMethods;
 				,monochrome=true
 				,glue 	  = {"stepDefinitions"}
 				,dryRun = false
-				,tags = {"@testt"}
+				,tags = {"@test1"}
 				,snippets=SnippetType.CAMELCASE
 				)
 

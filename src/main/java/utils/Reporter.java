@@ -2,6 +2,9 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,9 +23,12 @@ public abstract class Reporter {
     public static ExtentReports extent;
     public ExtentTest test, suiteTest;
     public String testCaseName, testNodes, testDescription, category, authors;
-    public Boolean appendExisting = false;
+    public Boolean appendExisting = true;
 
-	
+	String path ="C:\\Results";
+	String imagePath = "C:\\Results\\Image";
+
+
 	private static Map<RemoteWebDriver,ExtentTest> testDriver;
 
 	public void reportStep(String desc, String status, boolean bSnap) {
@@ -33,8 +39,12 @@ public abstract class Reporter {
 	            long snapNumber = 100000L;
 	            snapNumber = takeSnap();
 	            try {
-	                img = MediaEntityBuilder.createScreenCaptureFromPath
+	                /*img = MediaEntityBuilder.createScreenCaptureFromPath
 	                        ("./../reports/images/"+snapNumber+".jpg").build();
+
+	                 */
+					img = MediaEntityBuilder.createScreenCaptureFromPath
+							(imagePath+"/"+snapNumber+".jpg").build();
 	            } catch (IOException e) {                
 	            }
 	        }
@@ -61,9 +71,26 @@ public abstract class Reporter {
 
 	public void startResult(){
 		try {
-		testDriver = new HashMap<RemoteWebDriver, ExtentTest>();
-		html = new ExtentHtmlReporter("./reports/result.html");
-        html.setAppendExisting(appendExisting); 
+			String date = DateFormat.getDateInstance().format(new Date());
+			String dateTime = DateFormat.getDateTimeInstance().format(new Date());
+			dateTime = dateTime.replace(",","_");
+			dateTime = dateTime.replace(" ","_");
+			dateTime = dateTime.replace(":","-");
+
+
+			File f = new File(imagePath);
+			if (f.mkdir() == true) {
+				System.out.println("Directory has been created successfully");
+			}
+			else {
+				System.out.println("Directory cannot be created");
+			}
+
+			testDriver = new HashMap<RemoteWebDriver, ExtentTest>();
+		//html = new ExtentHtmlReporter("./reports/result_"+dateTime+".html");
+			html = new ExtentHtmlReporter(path+"/result_"+dateTime+".html");
+
+			html.setAppendExisting(appendExisting);
         extent = new ExtentReports();        
         extent.attachReporter(html);
         if (!appendExisting) {

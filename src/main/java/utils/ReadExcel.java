@@ -2,7 +2,12 @@ package utils;
 
 import java.io.FileInputStream;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,10 +18,23 @@ public class ReadExcel{
 
 		String[][] data = null ;
 
+		Workbook workbook=null;
+		Sheet sheet = null;
+		FileInputStream fis=null;
+
 		try {
-			FileInputStream fis = new FileInputStream("./data/"+dataSheetName+".xlsx");
-			XSSFWorkbook workbook = new XSSFWorkbook(fis);
-			XSSFSheet sheet = workbook.getSheetAt(0);	
+			String[] format = dataSheetName.split("\\.");
+
+			if(format[1].equalsIgnoreCase("xlsx")){
+				 fis = new FileInputStream("./datasheet/"+dataSheetName);
+				 workbook = new XSSFWorkbook(fis);
+				 sheet = workbook.getSheetAt(0);
+			} else if (format[1].equalsIgnoreCase("xls")) {
+				 fis = new FileInputStream("./datasheet/"+dataSheetName);
+				 workbook = new HSSFWorkbook(fis);
+				 sheet = workbook.getSheetAt(0);
+			}
+
 
 			// get the number of rows
 			int rowCount = sheet.getLastRowNum();
@@ -28,7 +46,7 @@ public class ReadExcel{
 			// loop through the rows
 			for(int i=1; i <rowCount+1; i++){
 				try {
-					XSSFRow row = sheet.getRow(i);
+					Row row = sheet.getRow(i);
 					for(int j=0; j <columnCount; j++){ // loop through the columns
 						try {
 							String cellValue = "";

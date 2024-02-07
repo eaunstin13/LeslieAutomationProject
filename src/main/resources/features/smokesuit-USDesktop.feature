@@ -2,7 +2,7 @@
 Feature: Sanity Test on any site
 
 	
-@test 
+@test1
 Scenario: Verify the funcnality of the Hompage and Login  
 	Given I landing to the home page
 	Then I enter the productname and verify appropriate search result is displayed
