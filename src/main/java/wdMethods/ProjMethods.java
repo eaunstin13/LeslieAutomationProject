@@ -21,6 +21,7 @@ import utils.ReadExcel;
 public class ProjMethods extends SeMethods {
 
 	public static String dataSheetName;
+	public static String sheetName;
 
 	@BeforeSuite
 	public void beforeSuite() {
@@ -54,7 +55,7 @@ public class ProjMethods extends SeMethods {
 	@DataProvider(name = "fetchData")
 	public Object[][] getData() {
 		System.out.println("I am inside dataprovider");
-		return ReadExcel.getSheet(dataSheetName);
+		return ReadExcel.getSheet(dataSheetName,sheetName);
 	}
 
 	public void waitForLoaderToBeGone() {

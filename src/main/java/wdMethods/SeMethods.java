@@ -37,6 +37,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -55,8 +56,8 @@ public class SeMethods extends Reporter implements WdMethods {
 	protected static final ThreadLocal<SeMethods> driverThreadLocal = new ThreadLocal<SeMethods>();
 	public RemoteWebDriver driver;
 	protected Properties prop;
-	public boolean bRemote;
-	public String primaryWindowHandle,sHubUrl,sHubPort,browser;
+	public boolean bRemote,mobileWeb;
+	public String primaryWindowHandle,sHubUrl,sHubPort,browser,mobileDevice;
 	public int short_wait, long_wait, waitTime;
 
 	public String imagePath ="C:\\Results\\Image";
@@ -71,17 +72,17 @@ public class SeMethods extends Reporter implements WdMethods {
 	public SeMethods() {
 		prop = new Properties();
 		try {
-			prop.load(new FileInputStream(new File("./src/main/resources/config.properties")));
+			prop.load(new FileInputStream(new File("./src/main/resources/resources.properties")));
 			sHubUrl = prop.getProperty("HUB");
 			sHubPort = prop.getProperty("PORT");
-			bRemote = Boolean.valueOf(prop.getProperty("REMOTE"));
-//			mobileWeb = val; 
+			bRemote = Boolean.parseBoolean(prop.getProperty("REMOTE"));
+			//mobileWeb = Boolean.parseBoolean(prop.getProperty("MOBILEWEB"));
 			browser = prop.getProperty("BROWSER");
 //			environment=GlobalVariables.getGlobalVariable("environment");
 			short_wait = Integer.parseInt(prop.getProperty("SHORT_WAIT"));
 			long_wait =Integer.parseInt(prop.getProperty("LONG_WAIT"));
 			waitTime =Integer.parseInt(prop.getProperty("WAIT"));
-			
+			mobileDevice = prop.getProperty("device");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -117,8 +118,9 @@ public class SeMethods extends Reporter implements WdMethods {
 //					ChromeOptions options = new ChromeOptions();
 //					Map<String, Object> prefs = new HashMap<String, Object>();
 //					prefs
-					
-					if(GlobalVariables.getGlobalVariable("mobileWeb").contains("true")? true : false) {
+
+					System.out.println("Running Mobile web in Remote");
+					if(GlobalVariables.getGlobalVariable("mobileWeb").contains("true")) {
 						Map<String, Object> deviceMetrics = new HashMap<>();
 						deviceMetrics.put("width", 360);
 						deviceMetrics.put("height", 640);
@@ -137,26 +139,26 @@ public class SeMethods extends Reporter implements WdMethods {
 					//	driver = new RemoteWebDriver(new URL("http://localhost:5000/wd/hub"), options);
 						driver = new RemoteWebDriver(new URL("http://10.0.2.192:4444/wd/hub"), options);
 
-						
+
 					}else {
+						System.out.println("Running web browser in Remote");
+
 						ChromeOptions options = new ChromeOptions();
 						//Map<String, Object> prefs = new HashMap<String, Object>();
 						//driver = new RemoteWebDriver(new URL("http://localhost:5000/wd/hub"), options);
 						driver = new RemoteWebDriver(new URL("http://10.0.2.192:4444/wd/hub"), options);
 
 					}
-					
+
 					//reportStep("Running with this remote URL: http://"ava":"+remoteHubPort+"/wd/hub", "INFO");	
 					System.out.println("Script start to execuitng using "+browser+" Browser" );
-					
-					
-					
-					
+
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 					reportStep("Getting exception in Remote Run", "FAIL",false);
 				} 
-			
+
+
 //				try {
 //					prop = new Properties();
 //					prop.load(new FileInputStream(new File("./src/main/resources/config.properties")));
@@ -184,15 +186,20 @@ public class SeMethods extends Reporter implements WdMethods {
 			}
 			else{ // this is for local run
 				if(browser.equalsIgnoreCase("chrome")){
-					System.setProperty("webdriver.chrome.driver",prop.getProperty("Chrome_Driver_Path")); 
-					if(GlobalVariables.getGlobalVariable("mobileWeb").contains("true")? true : false) {
+					//System.setProperty("webdriver.chrome.driver",prop.getProperty("Chrome_Driver_Path"));
+					System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
+					if(GlobalVariables.getGlobalVariable("mobileWeb").contains("true")) {
+						System.out.println("Running Mobile web in local");
+
 						Map<String, Object> deviceMetrics = new HashMap<>();
-						deviceMetrics.put("width", 360);
-						deviceMetrics.put("height", 640);
-						deviceMetrics.put("pixelRatio", 3.0);
+						//deviceMetrics.put("width", 360);
+						//deviceMetrics.put("height", 640);
+						//deviceMetrics.put("pixelRatio", 3.0);
 						
 						Map<String, Object> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceMetrics", deviceMetrics);
+						//mobileEmulation.put("deviceMetrics", deviceMetrics);
+						mobileEmulation.put("deviceName", mobileDevice);
+
 						ChromeOptions options = new ChromeOptions();
 						options.addArguments("--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, "
 						        + "like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25");
@@ -203,12 +210,19 @@ public class SeMethods extends Reporter implements WdMethods {
 						driver = new ChromeDriver(options);
 						
 					}else {
-					driver = new ChromeDriver();
+						System.out.println("Running web browser in local");
+						driver = new ChromeDriver();
 					}
 					
-				}else{
-					System.setProperty("webdriver.gecko.driver", prop.getProperty("FF_Driver_Path"));
+				}else if (browser.equalsIgnoreCase("firefox")){
+					//System.setProperty("webdriver.gecko.driver", prop.getProperty("FF_Driver_Path"));
+					System.setProperty("webdriver.gecko.driver","drivers/geckodriver.exe");
 					driver = new FirefoxDriver();
+				}
+				else if (browser.equalsIgnoreCase("edge")){
+					//System.setProperty("webdriver.edge.driver", prop.getProperty("Edge_Driver_Path"));
+					System.setProperty("webdriver.edge.driver", "drivers/msedgedriver.exe");
+					driver = new EdgeDriver();
 				}
 				
 			}
@@ -216,7 +230,7 @@ public class SeMethods extends Reporter implements WdMethods {
 			sm.driver = driver;
 			setDriver(sm);
 			Capabilities cap = driver.getCapabilities();
-			if(!GlobalVariables.getGlobalVariable("mobileWeb").contains("true")? true : false) {
+			if(!GlobalVariables.getGlobalVariable("mobileWeb").contains("true")) {
             if (cap.getPlatform().toString().contains("MAC")) {
                 driver.manage().window().fullscreen();
             }else {

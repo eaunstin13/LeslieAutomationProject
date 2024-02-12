@@ -11,6 +11,7 @@ import cucumber.api.SnippetType;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.PickleEventWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
+import utils.ReadWriteExcelProperties;
 import wdMethods.ProjMethods;
 
 //@RunWith(Cucumber.class)
@@ -27,12 +28,15 @@ import wdMethods.ProjMethods;
 public class TestNgRunner extends ProjMethods{
 
 	private TestNGCucumberRunner testNGCucumberRunner;
-
+    private  ReadWriteExcelProperties readWriteExcelProperties;
     @BeforeClass(alwaysRun = true)
     public void setUpClass(ITestContext context) throws Exception {
     	context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(1);
         context.getCurrentXmlTest().getSuite().setPreserveOrder(false);
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
+        readWriteExcelProperties =new ReadWriteExcelProperties();
+
+        readWriteExcelProperties.readWriteProperties();
     }
 
     @Test(dataProvider = "scenarios")

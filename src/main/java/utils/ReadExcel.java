@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReadExcel{
 
-	public static String[][] getSheet(String dataSheetName) {
+	public static String[][] getSheet(String dataSheetName,String sheetName) {
 
 		String[][] data = null ;
 
@@ -28,13 +28,14 @@ public class ReadExcel{
 			if(format[1].equalsIgnoreCase("xlsx")){
 				 fis = new FileInputStream("./datasheet/"+dataSheetName);
 				 workbook = new XSSFWorkbook(fis);
-				 sheet = workbook.getSheetAt(0);
+				 //sheet = workbook.getSheetAt(sheetName);
 			} else if (format[1].equalsIgnoreCase("xls")) {
 				 fis = new FileInputStream("./datasheet/"+dataSheetName);
 				 workbook = new HSSFWorkbook(fis);
-				 sheet = workbook.getSheetAt(0);
+				//sheet = workbook.getSheetAt(sheetName);
 			}
 
+			sheet = workbook.getSheet(sheetName);
 
 			// get the number of rows
 			int rowCount = sheet.getLastRowNum();

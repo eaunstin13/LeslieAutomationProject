@@ -2,7 +2,7 @@
 Feature: Sanity Test on any site
 
 	
-@test1
+@test
 Scenario: Verify the funcnality of the Hompage and Login  
 	Given I landing to the home page
 	Then I enter the productname and verify appropriate search result is displayed
@@ -21,7 +21,7 @@ Scenario: Verify the funcnality of PLP and PDP and the Cart page
 	Then the user is able to increase and decreease the product qty and adds prduct to cart
 	Then the user verifies the mini cart having the product details 
 	
-@test
+@test1
 Scenario: Verify the funcnality of checkout page and user bale to place order  
 	Given I landing to the home page
 	Then The user login in account with the existing credentials 	

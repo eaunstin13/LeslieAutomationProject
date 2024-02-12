@@ -237,7 +237,7 @@ public class HomePage extends ProjMethods {
 	
 	public void createNewLoginUser() {
 		ReadExcel user = new ReadExcel();
-		String[][] data = user.getSheet("datasheet.xls");
+		String[][] data = user.getSheet("datasheet.xlsx","user");
 		String firstNamedata = null;
 		String lastNamedata = null;
 		String emaildata = null;
@@ -246,7 +246,7 @@ public class HomePage extends ProjMethods {
 		System.out.println(Arrays.deepToString(data));
 
 		for (int i = 0; i < data.length; i++) {
-			if(data[i][5].equalsIgnoreCase("N")){
+			if(data[i][5].equalsIgnoreCase("Y") || data[i][5].equalsIgnoreCase("Yes")){
 				for (int j = 0; j < data[i].length; j++) {
 					 firstNamedata = data[i][1];
 					 lastNamedata = data[i][2];

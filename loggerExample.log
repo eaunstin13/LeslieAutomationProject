@@ -1,0 +1,4 @@
+Feb 06, 2024 5:11:51 PM utils.LoggerFile main
+INFO: message 1
+Feb 06, 2024 5:11:51 PM utils.LoggerFile main
+SEVERE: message 2

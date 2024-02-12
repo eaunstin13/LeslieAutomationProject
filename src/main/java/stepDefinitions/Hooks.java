@@ -10,9 +10,11 @@ public class Hooks extends ProjMethods{
 	
 	@Before
 	public void launchBrowser(Scenario sc) throws InterruptedException {
-		
+
 	    String scenarioName = null;
-		dataSheetName = "TC002_MessagingTest"; 
+		dataSheetName = "TC002_MessagingTest";
+		sheetName = "";
+
 		if(sc.getId().contains("USMobile")) {
 			GlobalVariables.addGlobalVariable("environment", "US");
 			GlobalVariables.addGlobalVariable("mobileWeb", "true");
@@ -32,7 +34,8 @@ public class Hooks extends ProjMethods{
 		}else {
 			reportStep("Invalid feature file name", "FAIL");
 		}
-		
+		System.out.println(scenarioName);
+
 		startApp(browser,scenarioName ,bRemote);
 		startTestModule(scenarioName, sc.getId());
 	}
