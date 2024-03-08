@@ -1,29 +1,17 @@
 package pages;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
-
-//import com.sun.tools.javac.util.Context.Key;
-
-import io.appium.java_client.android.nativekey.KeyEvent;
-import utils.GlobalVariables;
-//import wdMethods.EddieBauerMethods;
 import utils.ReadExcel;
 import wdMethods.ProjMethods;
+
+import java.awt.*;
+import java.util.Arrays;
 
 public class HomePage extends ProjMethods {
 	
@@ -384,6 +372,5 @@ public class HomePage extends ProjMethods {
 		
 
 	}
-	
-	
+
 }

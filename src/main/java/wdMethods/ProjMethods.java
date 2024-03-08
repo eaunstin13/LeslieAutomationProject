@@ -1,22 +1,15 @@
 package wdMethods;
 
-import java.text.DateFormatSymbols;
-import java.util.List;
-import java.util.Random;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-
+import org.testng.annotations.*;
 import utils.ReadExcel;
+
+import java.text.DateFormatSymbols;
+import java.util.List;
+import java.util.Random;
 
 public class ProjMethods extends SeMethods {
 
@@ -74,8 +67,6 @@ public class ProjMethods extends SeMethods {
 
 	/**
 	 * This method used to generate random number in the given range
-	 * 
-	 * @author Eddibauer QA
 	 * @param low  - lowest number
 	 * @param high - highest number
 	 * @return
@@ -89,8 +80,6 @@ public class ProjMethods extends SeMethods {
 
 	/**
 	 * This method used to generate random string in small letter with given length
-	 * 
-	 * @author Eddibauer QA
 	 * @param stringlenth - specify required string length.
 	 * @return
 	 */
@@ -106,8 +95,6 @@ public class ProjMethods extends SeMethods {
 	/**
 	 * This method used to generate random string with capital letter with given
 	 * length
-	 * 
-	 * @author Eddibauer QA
 	 * @param stringlenth - specify required string length.
 	 * @return
 	 */
@@ -122,8 +109,6 @@ public class ProjMethods extends SeMethods {
 
 	/**
 	 * This method used to generate random 10 digit cell phone number with 10.
-	 * 
-	 * @author Eddibauer QA
 	 * @return
 	 */
 
@@ -141,8 +126,6 @@ public class ProjMethods extends SeMethods {
 
 	/**
 	 * This method used to generate random email.
-	 * 
-	 * @author Eddibauer QA
 	 * @return
 	 */
 
@@ -156,8 +139,6 @@ public class ProjMethods extends SeMethods {
 
 	/**
 	 * This method used to get the month name wile passing the month number.
-	 * 
-	 * @author Eddibauer QA
 	 * @param monthNumber - specify the month number.
 	 * @return
 	 */

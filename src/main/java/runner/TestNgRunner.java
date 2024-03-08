@@ -21,7 +21,7 @@ import wdMethods.ProjMethods;
 				,monochrome=true
 				,glue 	  = {"stepDefinitions"}
 				,dryRun = false
-				,tags = {"@test1"}
+				,tags = {"@apitest1"}
 				,snippets=SnippetType.CAMELCASE
 				)
 

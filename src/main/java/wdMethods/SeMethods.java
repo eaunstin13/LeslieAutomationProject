@@ -1,55 +1,28 @@
 package wdMethods;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.GlobalVariables;
+import utils.Reporter;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.InvalidElementStateException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NoSuchFrameException;
-import org.openqa.selenium.NoSuchWindowException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import cucumber.api.Scenario;
-import utils.GlobalVariables;
-import utils.Reporter;
 
 public class SeMethods extends Reporter implements WdMethods {
 
@@ -301,6 +274,7 @@ public class SeMethods extends Reporter implements WdMethods {
 			ele.clear();
 			ele.clear();
 			ele.sendKeys(data);
+
 			reportStep("The data: "+data+" entered successfully in the desired field", "PASS");
 		} catch (InvalidElementStateException e) {
 			reportStep("The data: "+data+" could not be entered in the field :"+ele,"FAIL");
@@ -322,13 +296,15 @@ public class SeMethods extends Reporter implements WdMethods {
 		}
 	}
 
+
+	Logger localLogger = Logger.getLogger(this.getClass().getName());
+
 	public void click(WebElement ele) {
 		try {	
 			WebDriverWait wait = new WebDriverWait(getDriver(), 20);
 			wait.until(ExpectedConditions.elementToBeClickable(ele));	
 			ele.click();
-
-
+			localLogger.info("this is useful information");
 		} catch (InvalidElementStateException e) {
 			scrollIntoViewTopOfScreen(ele);
 			clickElementByJavaScript(ele);
