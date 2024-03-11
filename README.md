@@ -16,3 +16,8 @@ Added below features
 - Updated script to read browser properties from excel instead of config.properties files.
 - Read mobile device specification from datasheet instaed of config.properties. All the mobile specific details can be updated in datasheet.
 - Set the drivers folder as default. All the browser driver files should be saved in drivers folder.
+
+
+Update to main branch on Mar-8-2024
+Added below features
+- Added API testing feature
