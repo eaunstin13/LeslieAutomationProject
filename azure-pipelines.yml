@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 2022NULTWS161
+  name: Default
 
 steps:
 - task: Maven@3
