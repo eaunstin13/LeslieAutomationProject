@@ -8,16 +8,6 @@ trigger:
 
 pool: Default
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/junitreports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption : 'x64'
-    mavenVersionOption: 'Default'
-    mavenOptions: '-Xmx3072m'
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -30,3 +20,13 @@ steps:
       cd EmployDetails
       mvn compile
       mvn test
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/junitreports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption : 'x64'
+    mavenVersionOption: 'Default'
+    mavenOptions: '-Xmx3072m'
