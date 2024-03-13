@@ -6,20 +6,15 @@
 trigger:
 - main
 
-pool:
-  name: Default
+pool: Default
 steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/junitreports/TEST-*.xml'
-    javaHomeOption: 'Path'
-    jdkDirectory: 'C:\Program Files\Java\jdk-19'
-    mavenVersionOption: 'Path'
-    mavenDirectory: 'C:\Users\Edmund Aunstin\apache-maven-3.9.6\bin\mvn.cmd'
-    mavenSetM2Home: true
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption : 'x64'
+    mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
