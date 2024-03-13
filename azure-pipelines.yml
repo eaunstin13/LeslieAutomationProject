@@ -18,3 +18,15 @@ steps:
     jdkArchitectureOption : 'x64'
     mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello world'
+      export MyTestVariable="$(MyTestVariable)"
+      
+      cd EmployDetails
+      mvn compile
+      mvn test
