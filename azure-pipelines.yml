@@ -8,18 +8,14 @@ trigger:
 
 pool: Default
 steps:
-- task: Bash@3
+- task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      # Write your commands here
+      # Write your PowerShell commands here.
       
-      echo 'Hello world'
-      export MyTestVariable="$(MyTestVariable)"
-      
-      cd EmployDetails
-      mvn compile
-      mvn test
+      Write-Host "Hello World"
+      -MyTestVariable ${env:MYTESTVARIABLE}
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
