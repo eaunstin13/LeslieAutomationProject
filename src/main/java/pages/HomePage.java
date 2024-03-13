@@ -89,7 +89,10 @@ public class HomePage extends ProjMethods {
 	
 	@FindBy(how = How.XPATH, using = "//*[@id='shippingZipCodedefault']")
 	public WebElement zipcode;
-	
+
+	@FindBy(how = How.XPATH, using = "//*[@id='phoneNumber']")
+	public WebElement phone;
+
 	@FindBy(how = How.XPATH, using = "//*[@class='minicart-link d-flex position-relative align-items-center']")
 	public WebElement cart;
 	
@@ -101,7 +104,10 @@ public class HomePage extends ProjMethods {
 	
 	@FindBy(how = How.XPATH, using = "//*[@class='form-control expirationMonth custom-select is-invalid']")
 	public WebElement expiryMonth;
-	
+
+	@FindBy(how = How.XPATH, using = "//*[@id='expirationDate']")
+	public WebElement expiration;
+
 	@FindBy(how = How.XPATH, using = "//*[@class='form-control expirationYear custom-select is-invalid']")
 	public WebElement expiryYear;
 	
@@ -130,79 +136,7 @@ public class HomePage extends ProjMethods {
 	
 	
 	public void verifyHomePage() throws AWTException, InterruptedException {
-		/*
-		Robot rb = new Robot();
 
-		rb.keyPress(java.awt.event.KeyEvent.VK_S);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_S);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_T);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_T);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_O);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_O);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_R);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_R);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_E);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_E);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_F);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_F);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_R);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_R);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_O);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_O);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_N);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_N);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_T);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_T);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_TAB);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_TAB);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_S);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_S);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_T);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_T);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_O);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_O);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_R);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_R);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_E);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_E);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_F);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_F);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_R);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_R);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_O);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_O);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_N);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_N);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_T);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_T);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_TAB);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_TAB);
-		Thread.sleep(10);
-		rb.keyPress(java.awt.event.KeyEvent.VK_ENTER);
-		rb.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
-
-		 */
 		Thread.sleep(10);
 		//click(closeIcon);
 		getDriver().navigate().refresh();
@@ -210,12 +144,16 @@ public class HomePage extends ProjMethods {
 		verifyTitleContains("Pool Supplies, Service & Repair | Leslie's Pool Supplies");
 		waitForServerToPerformAction(10);
 		reportStep("Successfully Landed to Home Page", "INFO");
+
+		click(getDriver().findElement(By.xpath("//*[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")));
+
 	}
 	
 
 
 	
 	public void searchByProductName() {
+
 		click(searchIconLesslies);
 		Actions searchProduct = new Actions(getDriver());
 		searchProduct.sendKeys("Chlorine tablets", Keys.ENTER).build().perform();
@@ -264,9 +202,24 @@ public class HomePage extends ProjMethods {
 	}
 	
 	public void loginWithExistingCredentials() {
+		ReadExcel user = new ReadExcel();
+		String[][] data = user.getSheet("datasheet.xlsx","user");
+		String emaildata = null;
+		String passworddata = null;
+
+		for (int i = 0; i < data.length; i++) {
+			if(data[i][6].equalsIgnoreCase("Y") || data[i][6].equalsIgnoreCase("Yes")){
+				for (int j = 0; j < data[i].length; j++) {
+					emaildata = data[i][3];
+					passworddata = data[i][4];
+				}
+			}
+		}
+
 		click(joinOrSignIn);
-		type(logInEmailID, "lokeshtester@gmail.com");
-		type(logInPassword, "Tester@27..");
+		type(logInEmailID, emaildata);
+		type(logInPassword, passworddata);
+		waitForServerToPerformAction(3);
 		click(SignIn);
 		waitForServerToPerformAction(3);
 		if (verifyUSerLoggedIN.isDisplayed()) {
@@ -291,7 +244,7 @@ public class HomePage extends ProjMethods {
 	}
 	
 	public void PLPtoPDP() {
-		click(getDriver().findElement(By.xpath("//*[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")));
+		//click(getDriver().findElement(By.xpath("//*[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")));
 		waitForServerToPerformAction(3);
 		click(firstPLPProduct);
 		waitForServerToPerformAction(3);
@@ -326,7 +279,8 @@ public class HomePage extends ProjMethods {
 		Actions searchProduct = new Actions(getDriver());
 		searchProduct.sendKeys("Chlorine tablets", Keys.ENTER).build().perform();
 		waitForServerToPerformAction(3);
-		click(getDriver().findElement(By.xpath("//*[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")));
+
+		//click(getDriver().findElement(By.xpath("//*[@class='onetrust-close-btn-handler onetrust-close-btn-ui banner-close-button ot-close-icon']")));
 		waitForServerToPerformAction(3);
 		click(firstPLPProduct);
 		waitForServerToPerformAction(3);
@@ -345,23 +299,25 @@ public class HomePage extends ProjMethods {
 		type(city, "Abbeville");
 		type(zipcode, "36310-6565");
 		waitForServerToPerformAction(3);
-		click(nextPayment);
 
+		type(phone,"9876543219");
+		click(nextPayment);
 	}
 	
 	public void addCreditCardDetails() {
-//		type(creditCardNumber, "4011-3611-0000-0012");
-//		selectDropDownUsingIndex(expiryMonth, 3);
-//		selectDropDownUsingIndex(expiryYear, 3);
-		type(savedSecurityCode, "222");
+		type(creditCardNumber, "4111111111111111");
+		type(expiration,"02/2025");
+		//selectDropDownUsingIndex(expiryMonth, 3);
+		//selectDropDownUsingIndex(expiryYear, 3);
+		type(SecurityCode, "123");
 		waitForServerToPerformAction(3);
-		click(reviewOrder);
+		//click(placeOrder);
 		
 
 	}
 	
 	public void userPlacesOrder() {
-		waitForServerToPerformAction(3);
+		//waitForServerToPerformAction(3);
 		click(placeOrder);
 		waitForServerToPerformAction(5);
 		if (thankyouOrder.isDisplayed()) {

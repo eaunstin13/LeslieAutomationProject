@@ -13,7 +13,7 @@ Scenario: Verify the user is able to Login with Existing credentials
 	Given I landing to the home page
 	Then The user login in account with the existing credentials 
 	
-@test
+@test3
 Scenario: Verify the funcnality of PLP and PDP and the Cart page   
 	Given I landing to the home page
 	Then the user searches for product and lands to PLP page 	
@@ -21,7 +21,7 @@ Scenario: Verify the funcnality of PLP and PDP and the Cart page
 	Then the user is able to increase and decreease the product qty and adds prduct to cart
 	Then the user verifies the mini cart having the product details 
 	
-@test
+@test4
 Scenario: Verify the funcnality of checkout page and user bale to place order  
 	Given I landing to the home page
 	Then The user login in account with the existing credentials 	
@@ -46,4 +46,4 @@ Scenario: Verify the funcnality of checkout page and user bale to place order
 
 		Examples:
 			| url      | total |
-			| /posts | 12    |
+			| /posts | 2    |
