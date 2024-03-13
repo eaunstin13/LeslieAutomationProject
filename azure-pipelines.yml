@@ -14,7 +14,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/junitreports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
+    jdkVersionOption: 'Default'
     jdkArchitectureOption : 'x64'
     mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
