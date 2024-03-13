@@ -137,8 +137,8 @@ public class HomePage extends ProjMethods {
 	
 	public void verifyHomePage() throws AWTException, InterruptedException {
 
-		String MyTestVariable="null";
-		System.out.println(MyTestVariable);
+		//String MyTestVariable="null";
+		System.out.println(System.getenv("MyTestVariable"));
 		Thread.sleep(10);
 		//click(closeIcon);
 		getDriver().navigate().refresh();
