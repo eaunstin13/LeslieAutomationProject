@@ -12,10 +12,12 @@ import wdMethods.ProjMethods;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Properties;
 
 public class HomePage extends ProjMethods {
-	
 
+
+	protected Properties prop;
 	public HomePage() {
 		PageFactory.initElements(getDriver(), this);
 	}
@@ -137,8 +139,11 @@ public class HomePage extends ProjMethods {
 	
 	public void verifyHomePage() throws AWTException, InterruptedException {
 
+		prop = new Properties();
+		String myvariable = prop.getProperty("myvariable");
+
 		//String MyTestVariable="null";
-		System.out.println(System.getenv("MyTestVariable"));
+		System.out.println(myvariable);
 		Thread.sleep(10);
 		//click(closeIcon);
 		getDriver().navigate().refresh();

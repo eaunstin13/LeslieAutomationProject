@@ -13,6 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<myVariable>${myVariable}</myVariable>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -111,6 +112,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
      	<finalName>Project</finalName>
 	</build>
 

@@ -6,6 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for project-smokesuit" enabled="true">
+        <sourceOutputDir name="${project.basedir}/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="${project.basedir}/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="smoke_suit" />
       </profile>
     </annotationProcessing>
