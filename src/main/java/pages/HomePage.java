@@ -11,9 +11,7 @@ import utils.ReadExcel;
 import wdMethods.ProjMethods;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -142,12 +140,12 @@ public class HomePage extends ProjMethods {
 	
 	public void verifyHomePage() throws AWTException, InterruptedException, IOException {
 
-		prop = new Properties();
-		prop.load(Files.newInputStream(new File("./src/main/resources/resources.properties").toPath()));
-		String myvariable = prop.getProperty("myvariable");
+		//prop = new Properties();
+		//prop.load(Files.newInputStream(new File("./src/main/resources/resources.properties").toPath()));
+		//String myvariable = prop.getProperty("myvariable");
 
-		System.out.println(myvariable);
-		System.out.println(System.getProperty("myVariable"));
+		//System.out.println(myvariable);
+		//System.out.println(System.getProperty("myVariable"));
 		Thread.sleep(10);
 		//click(closeIcon);
 		getDriver().navigate().refresh();
