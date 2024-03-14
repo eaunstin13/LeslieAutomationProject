@@ -8,17 +8,7 @@ trigger:
 
 pool: Default
 
-#variables:
-#  myVariable: 'Hello000'
 steps:
-#- task: PowerShell@2
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      # Write your PowerShell commands here.
-#      
-#      Write-Host "Hello World"
-#      -MyTestVariable ${env:MYTESTVARIABLE}
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
