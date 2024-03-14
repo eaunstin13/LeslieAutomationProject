@@ -7,6 +7,9 @@ trigger:
 - main
 
 pool: Default
+
+variables:
+  myVariable: 'Hello'
 steps:
 #- task: PowerShell@2
 #  inputs:
