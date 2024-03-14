@@ -8,14 +8,14 @@ trigger:
 
 pool: Default
 steps:
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
-      
-      Write-Host "Hello World"
-      -MyTestVariable ${env:MYTESTVARIABLE}
+#- task: PowerShell@2
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      # Write your PowerShell commands here.
+#      
+#      Write-Host "Hello World"
+#      -MyTestVariable ${env:MYTESTVARIABLE}
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -26,3 +26,10 @@ steps:
     jdkArchitectureOption : 'x64'
     mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
+schedules:
+- cron: '0 0 * * *'
+  displayName: Daily midnight build
+  always: true
+  branches:
+    include:
+    - main
