@@ -26,10 +26,11 @@ steps:
     jdkArchitectureOption : 'x64'
     mavenVersionOption: 'Default'
     mavenOptions: '-Xmx3072m'
-schedules:
-- cron: '0 0 * * *'
-  displayName: Daily midnight build
-  always: true
-  branches:
-    include:
-    - main
+    options: '-DmyVariable=$(myVariable)'
+#schedules:
+#- cron: '0 0 * * *'
+#  displayName: Daily midnight build
+#  always: true
+#  branches:
+#    include:
+#    - main
