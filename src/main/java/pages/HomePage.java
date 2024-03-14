@@ -144,6 +144,7 @@ public class HomePage extends ProjMethods {
 
 		//String MyTestVariable="null";
 		System.out.println(myvariable);
+		System.out.println(System.getProperty("myVariable"));
 		Thread.sleep(10);
 		//click(closeIcon);
 		getDriver().navigate().refresh();
