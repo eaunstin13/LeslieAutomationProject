@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<myVariable>${myVariable}</myVariable>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -87,7 +87,6 @@
 			<version>5.4.0</version>
 		</dependency>
 
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -109,6 +108,7 @@
 					<suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
+
 				</configuration>
 			</plugin>
 		</plugins>
