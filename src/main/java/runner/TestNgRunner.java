@@ -1,15 +1,16 @@
 package runner;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
-import cucumber.api.testng.CucumberFeatureWrapper;
-import cucumber.api.testng.PickleEventWrapper;
-import cucumber.api.testng.TestNGCucumberRunner;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.SnippetType;
+import cucumber.api.testng.CucumberFeatureWrapper;
+import cucumber.api.testng.PickleEventWrapper;
+import cucumber.api.testng.TestNGCucumberRunner;
 import utils.ReadWriteExcelProperties;
 import wdMethods.ProjMethods;
 
@@ -36,14 +37,11 @@ public class TestNgRunner extends ProjMethods{
         readWriteExcelProperties =new ReadWriteExcelProperties();
 
         readWriteExcelProperties.readWriteProperties();
-
     }
 
     @Test(dataProvider = "scenarios")
     public void runFeature(PickleEventWrapper pickleWrapper, CucumberFeatureWrapper featureWrapper) throws Throwable {
     	testNGCucumberRunner.runScenario(pickleWrapper.getPickleEvent());
-
-
 	}
 
     @DataProvider(name = "scenarios",parallel=true)
