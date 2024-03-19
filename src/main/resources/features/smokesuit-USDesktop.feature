@@ -30,6 +30,14 @@ Scenario: Verify the funcnality of checkout page and user bale to place order
 	When the user enters the credit card details 
 	Then the user is moved to review order page and places order
 
+	@test5
+	Scenario: Sign in Functionality
+		Given I land on the home page
+		Then Click the Sign in button
+		And Wait for Email Address and Type the Email Address, Password
+		Then Click the Sign in button
+
+
 	@apitest
 	Scenario Outline: Dummy Rest Api GET Students
 		Given Get Call to "<url>"

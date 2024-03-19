@@ -50,8 +50,10 @@ public class SeMethods extends Reporter implements WdMethods {
 			sHubPort = prop.getProperty("PORT");
 			bRemote = Boolean.parseBoolean(prop.getProperty("REMOTE"));
 			//mobileWeb = Boolean.parseBoolean(prop.getProperty("MOBILEWEB"));
-			//browser = prop.getProperty("BROWSER");
-			browser = System.getenv("myvariable");
+
+			browser = prop.getProperty("BROWSER");
+			//browser = System.getenv("myvariable");
+
 //			environment=GlobalVariables.getGlobalVariable("environment");
 			short_wait = Integer.parseInt(prop.getProperty("SHORT_WAIT"));
 			long_wait =Integer.parseInt(prop.getProperty("LONG_WAIT"));
